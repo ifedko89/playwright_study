@@ -1,0 +1,16 @@
+{
+  "name": "lamoda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "e5g.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui"
+  },
+  "private": true,
+  "devDependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1"
+  }
+}
