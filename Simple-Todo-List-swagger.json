@@ -1,0 +1,676 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Simple Todo List",
+    "description" : "A Simple todo list",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://apichallenges.eviltester.com",
+    "description" : "heroku hosted version"
+  }, {
+    "url" : "http://localhost:4567",
+    "description" : "local execution"
+  } ],
+  "paths" : {
+    "/todos" : {
+      "get" : {
+        "summary" : "return all the instances of todo",
+        "description" : "return all the instances of todo",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "All the todos",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todos"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todos"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "summary" : "we should be able to create todo without a ID using the field values in the body of the message. A maximum of 20 todos is allowed.",
+        "description" : "we should be able to create todo without a ID using the field values in the body of the message. A maximum of 20 todos is allowed.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/create_todo"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/create_todo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created a todo",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Error when creating a todo"
+          }
+        }
+      },
+      "options" : {
+        "summary" : "show all Options for endpoint of todos",
+        "description" : "show all Options for endpoint of todos",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "the endpoint verb options"
+          }
+        }
+      },
+      "head" : {
+        "summary" : "headers for all the instances of todo",
+        "description" : "headers for all the instances of todo",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/todos/{id}" : {
+      "get" : {
+        "summary" : "return a specific instances of todo using a id",
+        "description" : "return a specific instances of todo using a id",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A specific todo",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Could not find a specific todo"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "amend a specific instances of todo using a id with a body containing the fields to amend",
+        "description" : "amend a specific instances of todo using a id with a body containing the fields to amend",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/todo"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/todo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Replaced the specific todo details",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Could not find a specific todo"
+          }
+        }
+      },
+      "post" : {
+        "summary" : "amend a specific instances of todo using a id with a body containing the fields to amend",
+        "description" : "amend a specific instances of todo using a id with a body containing the fields to amend",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/todo"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/todo"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Amended the specific todo",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/todo"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Could not find a specific todo"
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "delete a specific instances of todo using a id",
+        "description" : "delete a specific instances of todo using a id",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Deleted a specific todo"
+          },
+          "404" : {
+            "description" : "Could not find a specific todo"
+          }
+        }
+      },
+      "options" : {
+        "summary" : "show all Options for endpoint of todos/:id",
+        "description" : "show all Options for endpoint of todos/:id",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "OK, No Content"
+          }
+        }
+      },
+      "head" : {
+        "summary" : "headers for a specific instances of todo using a id",
+        "description" : "headers for a specific instances of todo using a id",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Headers for a specific todo"
+          },
+          "404" : {
+            "description" : "Could not find a specific todo"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "id",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "integer"
+        },
+        "example" : "6"
+      } ]
+    },
+    "/challenger/{guid}" : {
+      "get" : {
+        "summary" : "Get a challenger in Json format to allow continued tracking of challenges.",
+        "description" : "Get a challenger in Json format to allow continued tracking of challenges.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Restore a saved challenger matching the supplied X-CHALLENGER guid to allow continued tracking of challenges.",
+        "description" : "Restore a saved challenger matching the supplied X-CHALLENGER guid to allow continued tracking of challenges.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "201" : {
+            "description" : "OK, Created"
+          },
+          "400" : {
+            "description" : "Error processing request"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "guid",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "d3fbd246-2c93-48d5-a6e0-68a2a0844951"
+      } ]
+    },
+    "/challenger" : {
+      "post" : {
+        "summary" : "Create a challenger using the X-CHALLENGER guid header.",
+        "description" : "Create a challenger using the X-CHALLENGER guid header.",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Error processing request"
+          },
+          "405" : {
+            "description" : "Method not allowed"
+          }
+        }
+      }
+    },
+    "/challenger/database/{guid}" : {
+      "get" : {
+        "summary" : "Get the todo data for the supplied X-CHALLENGER guid to allow later restoration of the todos.",
+        "description" : "Get the todo data for the supplied X-CHALLENGER guid to allow later restoration of the todos.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Error processing request"
+          },
+          "404" : {
+            "description" : "Not Found"
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Restore a saved set of todos for a challenger matching the supplied X-CHALLENGER guid.",
+        "description" : "Restore a saved set of todos for a challenger matching the supplied X-CHALLENGER guid.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "OK, No Content"
+          },
+          "400" : {
+            "description" : "Error processing request"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "guid",
+        "in" : "path",
+        "required" : true,
+        "schema" : {
+          "type" : "string"
+        },
+        "example" : "8f077238-c6a2-417e-99af-bb89a1ba64f2"
+      } ]
+    },
+    "/challenges" : {
+      "get" : {
+        "summary" : "Get list of challenges and their completion status",
+        "description" : "Get list of challenges and their completion status",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "options" : {
+        "summary" : "Options for list of challenges endpoint",
+        "description" : "Options for list of challenges endpoint",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      },
+      "head" : {
+        "summary" : "Headers for list of challenges endpoint",
+        "description" : "Headers for list of challenges endpoint",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/heartbeat" : {
+      "get" : {
+        "summary" : "Is the server running? YES 204",
+        "description" : "Is the server running? YES 204",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "OK, No Content"
+          }
+        }
+      },
+      "options" : {
+        "summary" : "Options for heartbeat endpoint",
+        "description" : "Options for heartbeat endpoint",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "OK, No Content"
+          }
+        }
+      },
+      "head" : {
+        "summary" : "Headers for heartbeat endpoint",
+        "description" : "Headers for heartbeat endpoint",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "OK, No Content"
+          }
+        }
+      }
+    },
+    "/secret/token" : {
+      "post" : {
+        "summary" : "POST /secret/token with basic auth to get a secret/token to use as X-AUTH-TOKEN header, to allow access to the /secret/note end points.",
+        "description" : "POST /secret/token with basic auth to get a secret/token to use as X-AUTH-TOKEN header, to allow access to the /secret/note end points.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "OK, Created"
+          },
+          "401" : {
+            "description" : "Standard Status Code Meaning"
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        } ]
+      }
+    },
+    "/secret/note" : {
+      "get" : {
+        "summary" : "GET /secret/note with X-AUTH-TOKEN to return the secret note for the user.",
+        "description" : "GET /secret/note with X-AUTH-TOKEN to return the secret note for the user.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        }, {
+          "name" : "X-AUTH-TOKEN",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Standard Status Code Meaning"
+          },
+          "403" : {
+            "description" : "Standard Status Code Meaning"
+          }
+        }
+      },
+      "post" : {
+        "summary" : "POST /secret/note with X-AUTH-TOKEN, and a payload of `{'note':'contents of note'}` to amend the contents of the secret note.",
+        "description" : "POST /secret/note with X-AUTH-TOKEN, and a payload of `{'note':'contents of note'}` to amend the contents of the secret note.",
+        "parameters" : [ {
+          "name" : "X-CHALLENGER",
+          "in" : "header",
+          "required" : true,
+          "schema" : { }
+        }, {
+          "name" : "X-AUTH-TOKEN",
+          "in" : "header",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Error processing request"
+          },
+          "401" : {
+            "description" : "Standard Status Code Meaning"
+          },
+          "403" : {
+            "description" : "Standard Status Code Meaning"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "todo" : {
+        "type" : "object",
+        "description" : "todo",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "description" : "Field is an ID and should not be amended or set.",
+            "example" : "1"
+          },
+          "title" : {
+            "type" : "string",
+            "description" : "The title of the TODO Item. Value is mandatory. Value can not be empty. Maximum length allowed is 50.",
+            "example" : "A title"
+          },
+          "doneStatus" : {
+            "type" : "boolean",
+            "description" : "Status to track the todo completion. Value must be a Boolean (true, false) value.",
+            "example" : "false"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Longer description of the todo. Maximum length allowed is 200.",
+            "example" : "my description"
+          }
+        },
+        "title" : "todo",
+        "xml" : {
+          "name" : "todo",
+          "wrapped" : true
+        }
+      },
+      "create_todo" : {
+        "type" : "object",
+        "description" : "todo",
+        "properties" : {
+          "title" : {
+            "type" : "string",
+            "description" : "The title of the TODO Item. Value is mandatory. Value can not be empty. Maximum length allowed is 50.",
+            "example" : "A title"
+          },
+          "doneStatus" : {
+            "type" : "boolean",
+            "description" : "Status to track the todo completion. Value must be a Boolean (true, false) value.",
+            "example" : "false"
+          },
+          "description" : {
+            "type" : "string",
+            "description" : "Longer description of the todo. Maximum length allowed is 200.",
+            "example" : "my description"
+          }
+        },
+        "title" : "create todo",
+        "xml" : {
+          "name" : "todo",
+          "wrapped" : true
+        }
+      },
+      "todos" : {
+        "type" : "array",
+        "description" : "todos",
+        "items" : {
+          "$ref" : "#/components/schemas/todo"
+        },
+        "title" : "todos",
+        "xml" : {
+          "wrapped" : true
+        }
+      }
+    },
+    "securitySchemes" : {
+      "basicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      }
+    }
+  }
+}

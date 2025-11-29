@@ -7,7 +7,7 @@ let todoId;
 let data;
 
 
-test.describe('Homework2 - challenge', () => {
+test.describe('Homework1 - challenge', () => {
     test.describe.configure({ mode: 'serial' });
     test.beforeAll( async ({request}) =>{
     const response = await request.post(`${apiUrl}/challenger`);
@@ -130,6 +130,72 @@ test.describe('Homework2 - challenge', () => {
         expect(postResponse.status()).toBe(400);
     })
 
+    test('create new task with long title', async ({request}) => {
+        let invalidData = {...data, title: faker.string.alpha(51)};
+        const postResponse = await request.post(`${apiUrl}/todos`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: invalidData
+        });
+        const body = await postResponse.json();
+        expect(postResponse.status()).toBe(400);
+        expect(body.errorMessages[0]).toBe("Failed Validation: Maximum allowable length exceeded for title - maximum allowed is 50");
+
+    })
+
+    test('create new task with long description', async ({request}) => {
+        let invalidData = {...data, description: faker.string.alpha(201)};
+        const postResponse = await request.post(`${apiUrl}/todos`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: invalidData
+        });
+        const body = await postResponse.json();
+        expect(postResponse.status()).toBe(400);
+        expect(body.errorMessages[0]).toBe("Failed Validation: Maximum allowable length exceeded for description - maximum allowed is 200");
+    })
+
+    test('create new task with extereme long description', async ({request}) => {
+        let invalidData = {...data, description: faker.string.alpha(5555)};
+        const postResponse = await request.post(`${apiUrl}/todos`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: invalidData
+        });
+        const body = await postResponse.json();
+        expect(postResponse.status()).toBe(413);
+        expect(body.errorMessages[0]).toBe("Error: Request body too large, max allowed is 5000 bytes");
+    })
+
+    test('create new task with max title and description', async ({request}) => {
+        let validData = {...data, title: faker.string.alpha(50), description: faker.string.alpha(200)};
+        const postResponse = await request.post(`${apiUrl}/todos`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: validData
+        });
+        const body = await postResponse.json();
+        expect(postResponse.status()).toBe(201);
+    })
+
+    test('create new task with extra field', async ({request}) => {
+        let invalidData = {...data, date: faker.date.anytime()};
+        const postResponse = await request.post(`${apiUrl}/todos`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: invalidData
+        });
+        const body = await postResponse.json();
+        expect(postResponse.status()).toBe(400);
+        expect(body.errorMessages[0]).toBe("Could not find field: date");
+
+    })
+
     test('delete existant task ', async ({request}) => {
         //Create new task
         const postResponse = await request.post(`${apiUrl}/todos`, {
@@ -154,6 +220,47 @@ test.describe('Homework2 - challenge', () => {
             }
         });
         expect(getResponse.status()).toBe(404);
+
+    })
+
+    test('update nonexistent task with PUT', async ({request}) => {
+        const response = await request.put(`${apiUrl}/todos/09090909`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: data
+        });
+
+        const body = await response.json();
+        expect(response.status()).toBe(400);
+        expect(body.errorMessages[0]).toBe("Cannot create todo with PUT due to Auto fields id");
+    })
+
+    test('update nonexistent task with POST', async ({request}) => {
+        const response = await request.post(`${apiUrl}/todos/09090909`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: data
+        });
+
+        const body = await response.json();
+        expect(response.status()).toBe(404);
+        expect(body.errorMessages[0]).toBe("No such todo entity instance with id == 09090909 found");
+    })
+
+    test('update task with POST', async ({request}) => {
+        const postResponse = await request.post(`${apiUrl}/todos/${todoId}`, {
+            headers: {
+                'x-challenger': token
+            },
+            data: data
+        });
+        const body = await postResponse.json();
+        expect(postResponse.status()).toBe(200);
+        expect(body.title).toBe("title");
+        expect(body.description).toBe("description");
+        expect(body.doneStatus).toBe(true);
 
     })
 
